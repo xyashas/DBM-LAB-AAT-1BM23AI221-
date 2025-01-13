@@ -1,0 +1,27 @@
+#Game of two stacks
+def max_score(x, a, b):
+    sum_stack = 0
+    count = 0
+    i, j = 0, 0
+
+    while i < len(a) and sum_stack + a[i] <= x:
+        sum_stack += a[i]
+        i += 1
+        count += 1
+
+    max_count = count
+
+    while j < len(b) and (i > 0 or sum_stack + b[j] <= x):
+        sum_stack += b[j]
+        j += 1
+        while sum_stack > x and i > 0:
+            i -= 1
+            sum_stack -= a[i]
+        max_count = max(max_count, i + j)
+
+    return max_count
+
+x = 10
+a = [4, 2, 4, 6, 1]
+b = [2, 1, 8, 5]
+print(max_score(x, a, b)) 
